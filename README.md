@@ -1,6 +1,6 @@
 # movie_library_app
 
-	Application to create 
+	Application to create your own library of movies.
 
 #Flutter and Dart Version
 
