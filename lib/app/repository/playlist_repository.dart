@@ -35,7 +35,7 @@ class MoviesRepository {
       if (lastPlaylistSnap != null) {
         query = query.startAfterDocument(lastPlaylistSnap);
       }
-      query = query.orderBy('userId').where('userId',isNotEqualTo: _firebaseAuth.currentUser!.uid,).where('isPrivate',isEqualTo: false).limit(2);
+      query = query.orderBy('userId').where('userId',isNotEqualTo: _firebaseAuth.currentUser!.uid,).where('isPrivate',isEqualTo: false).limit(10);
       QuerySnapshot snapshot = await query.get();
 
 
