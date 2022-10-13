@@ -12,7 +12,7 @@ import 'package:movie_library_app/app/repository/playlist_repository.dart';
 class PlaylistBloc extends Cubit<PlaylistsStates>{
   final MoviesRepository _repository;
   List<PlayListResponseModel> playlists=[];
-  List<UserPlaylistModel> userPlaylists = [];
+  List<Playlist> userPlaylists = [];
 
   bool _isDataFinished=false;
   PlaylistBloc(this._repository) : super(InitialPlaylistsState());
@@ -23,6 +23,8 @@ class PlaylistBloc extends Cubit<PlaylistsStates>{
   void reset(){
     _isDataFinished = false;
     playlists.clear();
+    userPlaylists.clear();
+    _movieToAdd=null;
     emit(InitialPlaylistsState());
   }
 
@@ -59,13 +61,19 @@ class PlaylistBloc extends Cubit<PlaylistsStates>{
 
   void loadUserPlaylist()async{
     emit(LoadingUserPlaylist());
-    ApiResponseWrapper<UserPlaylistModel> responseWrapper = await _repository.getUsersPlaylists();
-    if(responseWrapper.hasData){
-      emit(LoadedUserPlaylist(responseWrapper.data!.playlists));
-    }else if(responseWrapper.hasError){
-      emit(FailedLoadingUserPlaylist());
-    }else{
-      emit(EmptyUserPlaylist());
+    if(userPlaylists.isNotEmpty){
+      emit(LoadedUserPlaylist(userPlaylists));
+    }else {
+      ApiResponseWrapper<UserPlaylistModel> responseWrapper = await _repository
+          .getUsersPlaylists();
+      if (responseWrapper.hasData) {
+        userPlaylists.addAll(responseWrapper.data!.playlists);
+        emit(LoadedUserPlaylist(responseWrapper.data!.playlists));
+      } else if (responseWrapper.hasError) {
+        emit(FailedLoadingUserPlaylist());
+      } else {
+        emit(EmptyUserPlaylist());
+      }
     }
   }
 

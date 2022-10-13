@@ -9,7 +9,7 @@ import 'package:movie_library_app/app/bloc/authentication/auth_states.dart';
 import 'package:movie_library_app/app/screens/common_widgets/common_rounded_button.dart';
 import 'package:movie_library_app/app/screens/common_widgets/common_text_field.dart';
 import 'package:movie_library_app/app/screens/common_widgets/loading_widget.dart';
-import 'package:movie_library_app/resources/app_%20colors.dart';
+import 'package:movie_library_app/resources/app_colors.dart';
 import 'package:movie_library_app/services/navigation/routes.dart';
 
 class RegisterScreen extends StatefulWidget {

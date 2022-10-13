@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_library_app/app/bloc/playlist/playlist_bloc.dart';
 import 'package:movie_library_app/app/models/movie_response_model.dart';
-import 'package:movie_library_app/resources/app_%20colors.dart';
+import 'package:movie_library_app/resources/app_colors.dart';
 import 'package:movie_library_app/resources/images.dart';
 
 class SearchListItem extends StatelessWidget {

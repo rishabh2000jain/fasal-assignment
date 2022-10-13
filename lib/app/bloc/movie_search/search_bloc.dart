@@ -59,7 +59,7 @@ class SearchBloc extends Bloc<SearchMovieEvents,MovieSearchStates>{
       currPage++;
       emit(MoviesLoadedState(movies));
     }else{
-      emit(ErrorSearchState());
+      emit(EmptySearchState());
     }
   }
 

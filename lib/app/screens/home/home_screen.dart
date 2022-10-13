@@ -6,10 +6,8 @@ import 'package:movie_library_app/app/bloc/authentication/auth_bloc.dart';
 import 'package:movie_library_app/app/bloc/authentication/auth_states.dart';
 import 'package:movie_library_app/app/bloc/playlist/playlist_bloc.dart';
 import 'package:movie_library_app/app/bloc/playlist/playlist_states.dart';
-import 'package:movie_library_app/app/models/movie_response_model.dart';
-import 'package:movie_library_app/app/models/playlist_response_model.dart';
-import 'package:movie_library_app/resources/app_%20colors.dart';
-import 'package:movie_library_app/resources/images.dart';
+import 'package:movie_library_app/app/screens/home/widgets/playlist_view.dart';
+import 'package:movie_library_app/resources/app_colors.dart';
 import 'package:movie_library_app/services/navigation/routes.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -149,138 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class PlaylistListView extends StatelessWidget {
-  const PlaylistListView(
-      {required this.playlist,
-      required this.scrollController,
-      this.addLoadingIndicator = false,
-      Key? key})
-      : super(key: key);
-  final List<PlayListResponseModel> playlist;
-  final ScrollController scrollController;
-  final bool addLoadingIndicator;
 
-  @override
-  Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: (){
-      BlocProvider.of<PlaylistBloc>(context).refreshHomeScreenPlaylists();
-      return Future.delayed(const Duration(milliseconds: 400));
-    },
-      child: ListView.builder(
-        itemCount: addLoadingIndicator ? playlist.length + 1 : playlist.length,
-        itemBuilder: (BuildContext context, int index) {
-          if (index >= playlist.length) {
-            return const Align(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return PlaylistWidget(
-            playListResponseModel: playlist[index],
-          );
-        },
-      ),
-    );
-  }
-}
 
-class PlaylistWidget extends StatelessWidget {
-  const PlaylistWidget({required this.playListResponseModel, Key? key})
-      : super(key: key);
-  final PlayListResponseModel playListResponseModel;
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 230,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            playListResponseModel.playlistName,
-            style: GoogleFonts.poppins(
-              color: AppColors.primaryVariantColor,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
-            textAlign: TextAlign.start,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Expanded(
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: playListResponseModel.playlist.length,
-              itemBuilder: (BuildContext context, int index) {
-                return PlaylistListItem(
-                    movie: playListResponseModel.playlist[index]);
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
-class PlaylistListItem extends StatelessWidget {
-  const PlaylistListItem({required this.movie, Key? key}) : super(key: key);
-  final Search movie;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(10),
-      height: 200,
-      width: 100,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              clipBehavior: Clip.hardEdge,
-              child: Image.network(
-                movie.poster,
-                width: 100,
-                fit: BoxFit.fill,
-                errorBuilder: (context,_,stack){
-                  return Image.asset(AppImages.placeholder,
-                    width: 100,
-                    fit: BoxFit.fitWidth,);
-                },
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  movie.title,
-                  style: GoogleFonts.poppins(
-                    color: AppColors.primaryVariantColor,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  overflow: TextOverflow.fade,
-                  maxLines: 2,
-                  textAlign: TextAlign.start,
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}

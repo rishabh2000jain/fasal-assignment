@@ -26,9 +26,3 @@ class MoviesLoadedState extends MovieSearchStates{
   @override
   List<Object?> get props => [movies];
 }
-
-class ErrorSearchState extends MovieSearchStates{
-  ErrorSearchState();
-  @override
-  List<Object?> get props => [];
-}

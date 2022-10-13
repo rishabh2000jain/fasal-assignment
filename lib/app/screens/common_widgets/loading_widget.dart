@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_library_app/resources/app_%20colors.dart';
+import 'package:movie_library_app/resources/app_colors.dart';
 
 class LoadingAlert {
   LoadingAlert._();
