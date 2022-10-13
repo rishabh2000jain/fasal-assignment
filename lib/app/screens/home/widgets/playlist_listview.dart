@@ -24,6 +24,8 @@ class PlaylistWidget extends StatelessWidget {
               fontSize: 18,
               fontWeight: FontWeight.w700,
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.start,
           ),
           const SizedBox(
